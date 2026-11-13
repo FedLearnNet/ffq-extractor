@@ -3,6 +3,10 @@ info:
   slug: ffq-extractor
   type: EXTRACTOR
   shortDescription: Convert FFQ Excel (or a ZIP of many) into microbiome Nutrition CSV rows.
+  longDescription: >
+    EXTRACTOR tool that turns food-frequency questionnaire Excel workbooks into a flat
+    Nutrition CSV. Accepts a single .xlsx or a .zip of many per-patient workbooks.
+    Outputs nutrition_csv.
   sourceUrl: https://github.com/FedLearnNet/ffq-extractor
 config:
   hyperparams:
