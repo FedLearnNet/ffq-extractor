@@ -13,9 +13,7 @@ class FfqExtractorApp(BasePrePostProcessApp[MyAppConfig, MyAppInputConfig, MyApp
 
     def run_process(self, data: MyAppInputConfig) -> MyAppOutputConfig:
         archive = Path(data.ffq_archive)
-        out_dir = Path(".")
-        nutrition_csv = out_dir / "nutrition.csv"
-        error_log = out_dir / "nutrition.errors.log"
+        nutrition_csv = Path(".") / "nutrition.csv"
 
         workers = max(1, int(self.config.workers))
         sheet = self.config.sheet or "Sheet1"
@@ -38,7 +36,6 @@ class FfqExtractorApp(BasePrePostProcessApp[MyAppConfig, MyAppInputConfig, MyApp
             archive,
             nutrition_csv,
             mapping_path=default_mapping_path(),
-            error_log=error_log,
             sheet_name=sheet,
             strict=strict,
             workers=workers,
@@ -54,12 +51,10 @@ class FfqExtractorApp(BasePrePostProcessApp[MyAppConfig, MyAppInputConfig, MyApp
         if result.files_failed and result.failed_members:
             preview = ", ".join(result.failed_members[:10])
             self.logger.warning(
-                f"{result.files_failed} file(s) failed (see error_log). "
-                f"Examples: {preview}"
+                f"{result.files_failed} file(s) failed. Examples: {preview}"
             )
 
         if not result.ok:
-            # Still return artifacts so operators can inspect partial output + log
             self.logger.error(
                 "Extraction finished with failures "
                 f"(ok={result.files_ok}, failed={result.files_failed})"
@@ -71,10 +66,5 @@ class FfqExtractorApp(BasePrePostProcessApp[MyAppConfig, MyAppInputConfig, MyApp
                 "Frequency consumption,Food group,Food subgroup,Food item\n",
                 encoding="utf-8",
             )
-        if not error_log.exists():
-            error_log.write_text("", encoding="utf-8")
 
-        return MyAppOutputConfig(
-            nutrition_csv=nutrition_csv,
-            error_log=error_log,
-        )
+        return MyAppOutputConfig(nutrition_csv=nutrition_csv)

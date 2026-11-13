@@ -42,7 +42,6 @@ Contract (`app.yml` / `config.py`):
 |--|------|------|
 | Input | `ffq_archive` | `PATH` (`.xlsx` or `.zip`) |
 | Output | `nutrition_csv` | `CSV` |
-| Output | `error_log` | `TEXT` |
 | Hyperparam | `workers` | process-pool size for ZIP |
 | Hyperparam | `strict` | promote warnings to errors |
 | Hyperparam | `sheet` | worksheet name (default `Sheet1`) |
@@ -52,7 +51,6 @@ Contract (`app.yml` / `config.py`):
 ```bash
 ffq-extract filled.xlsx -o nutrition.csv
 ffq-extract patients.zip -o nutrition.csv --workers 8
-ffq-extract patients.zip -o nutrition.csv --error-log nutrition.errors.log
 ```
 
 ZIP batch behavior:

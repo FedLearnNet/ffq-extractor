@@ -19,4 +19,3 @@ def test_config_dataclasses_importable():
     assert cfg.workers == 2
     assert MyAppInputConfig.__dataclass_fields__["ffq_archive"]
     assert MyAppOutputConfig.__dataclass_fields__["nutrition_csv"]
-    assert MyAppOutputConfig.__dataclass_fields__["error_log"]

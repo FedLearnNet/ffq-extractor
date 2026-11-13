@@ -33,6 +33,3 @@ config:
       description: Combined Nutrition rows (one row per marked food item).
       hasHeader: true
       delimiter: ","
-    - name: error_log
-      type: TEXT
-      description: Per-file failure log for ZIP batch runs (may be empty when all succeed).

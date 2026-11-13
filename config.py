@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Optional
 
 from pydantic.dataclasses import dataclass
 from pyfedappwrap.learning.run_runfig import AppConfig, AppInputConfig, AppOutputConfig
@@ -18,5 +19,4 @@ class MyAppInputConfig(AppInputConfig):
 
 @dataclass
 class MyAppOutputConfig(AppOutputConfig):
-    nutrition_csv: Path
-    error_log: Path
+    nutrition_csv: Optional[Path] = None
