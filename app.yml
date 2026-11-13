@@ -1,0 +1,38 @@
+info:
+  name: FFQ Extractor
+  slug: ffq-extractor
+  type: EXTRACTOR
+  shortDescription: Convert FFQ Excel (or a ZIP of many) into microbiome Nutrition CSV rows.
+  sourceUrl: https://github.com/FedLearnNet/ffq-extractor
+config:
+  hyperparams:
+    - name: workers
+      type: INTEGER
+      description: Process-pool size for ZIP batch extraction (ignored for a single .xlsx).
+      default: 4
+      minValue: 1
+      maxValue: 64
+    - name: strict
+      type: BOOLEAN
+      description: Treat warn-level anomalies (odd marks, NA-mapped items) as errors.
+      default: false
+    - name: sheet
+      type: STRING
+      description: Worksheet name containing the FFQ matrix.
+      default: Sheet1
+  input:
+    - name: ffq_archive
+      type: PATH
+      required: true
+      description: >
+        A filled FFQ .xlsx workbook, or a .zip archive containing many
+        per-patient FFQ Excel files (nested folders allowed).
+  output:
+    - name: nutrition_csv
+      type: CSV
+      description: Combined Nutrition rows (one row per marked food item).
+      hasHeader: true
+      delimiter: ","
+    - name: error_log
+      type: TEXT
+      description: Per-file failure log for ZIP batch runs (may be empty when all succeed).

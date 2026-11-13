@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ffq-extractor"
+version = "0.1.0"
+description = "Extract FFQ Excel questionnaires into microbiome Nutrition CSV rows"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Csongor Csalóka" }]
+dependencies = [
+  "openpyxl>=3.1.0",
+  "pandas>=2.0.0",
+  "typer>=0.12.0",
+]
+
+# FL-Net runtime (optional for local core/CLI tests)
+# Install via requirements.txt which adds TestPyPI index for pyfedappwrap.
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0.0"]
+
+[project.scripts]
+ffq-extract = "ffq_extractor.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+ffq_extractor = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
